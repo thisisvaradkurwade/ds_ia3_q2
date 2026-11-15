@@ -9,7 +9,17 @@ using namespace std;
 const int M = 31;
 list<int> table_[M];
 
+// mid-square: square the key, take middle 2 digits of the 4-digit square, then mod M
+int hashFunc(int key) {
+    int sq = key * key;
+    int mid = (sq / 10) % 100;
+    return mid % M;
+}
+
 int main() {
-    cout << "Hash table project started\n";
+    cout << "hash(19) = " << hashFunc(19) << "\n";
+    cout << "hash(32) = " << hashFunc(32) << "\n";
+    cout << "hash(45) = " << hashFunc(45) << "\n";
+    cout << "hash(1) = " << hashFunc(1) << "\n";
     return 0;
 }
