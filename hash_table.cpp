@@ -23,12 +23,26 @@ void generateDataset(int S, int v[]) {
         v[i] = (S + 13 * i) % 100;
 }
 
-// separate chaining: if the bucket is not empty, the key is added at the end of its chain
+// separate chaining with a duplicate check
 void insertKey(int key) {
     int idx = hashFunc(key);
+    for (int x : table_[idx]) {
+        if (x == key) {
+            cout << "Key " << key << " already present, skipped\n";
+            return;
+        }
+    }
     if (!table_[idx].empty())
         cout << "Collision at index " << idx << " for key " << key << "\n";
     table_[idx].push_back(key);
+}
+
+// search: go to the bucket and walk through its chain
+bool searchKey(int key) {
+    int idx = hashFunc(key);
+    for (int x : table_[idx])
+        if (x == key) return true;
+    return false;
 }
 
 // print every bucket with its chain
@@ -57,5 +71,11 @@ int main() {
 
     cout << "\nFinal table:\n";
     display();
+
+    cout << "\nTrying to insert 49 again:\n";
+    insertKey(49);
+
+    cout << "\nSearch 49: " << (searchKey(49) ? "found" : "not found") << "\n";
+    cout << "Search 50: " << (searchKey(50) ? "found" : "not found") << "\n";
     return 0;
 }
