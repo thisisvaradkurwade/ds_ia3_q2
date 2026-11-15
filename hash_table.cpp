@@ -24,6 +24,16 @@ void insertKey(int key) {
     table_[idx].push_back(key);
 }
 
+// print every bucket with its chain
+void display() {
+    for (int i = 0; i < M; i++) {
+        cout << setw(2) << i << " : ";
+        if (table_[i].empty()) cout << "-";
+        for (int x : table_[i]) cout << x << " -> ";
+        cout << "\n";
+    }
+}
+
 int main() {
     int S = 19;
     for (int i = 0; i < 20; i++) {
@@ -31,8 +41,7 @@ int main() {
         insertKey(v);
     }
 
-    int stored = 0;
-    for (int i = 0; i < M; i++) stored += table_[i].size();
-    cout << "Keys inserted: 20, keys stored: " << stored << "\n";
+    cout << "\nFinal table:\n";
+    display();
     return 0;
 }
